@@ -1,6 +1,6 @@
 # Creative Corner
 
-This is a frontend prototype created with Create React App. It includes a few implemented features such as login, feed, create post, and like/reply functionalities. Please note that many backend functionalities are not completed, and this is just a prototype.
+This is a frontend prototype created with Create React App and MUI library for front end design. It includes a few implemented features such as login, feed, create post, and like/reply functionalities. Please note that many backend functionalities are not completed, and this is just a prototype.
 
 A demo version of the app is available at https://creativecorner-97e71.web.app/.
 
