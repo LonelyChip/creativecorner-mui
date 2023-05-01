@@ -1,25 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+import Home from "./components/Home";
+import SignIn from "./components/Signin";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import Chats from "./components/Chats";
+import Register from "./components/Register";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 function App() {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+
+  const ProtectedRoute = ({ children }: any) => {
+    if (currentUser === null) {
+      return <Navigate to="/signin" />;
+    } else return children;
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chats"
+            element={
+              <ProtectedRoute>
+                <Chats />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<Register />} />
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 
